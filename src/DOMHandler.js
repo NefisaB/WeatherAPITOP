@@ -1,11 +1,12 @@
 import APIHandler from "./APIHandler";
+import DATAHandler from "./DATAHandler";
 
 const DOMHandler = (function () {
     const populateData = async (weatherData) => {
-        console.log('weather dsata' + weatherData);
+        
         const body = document.querySelector('body');
         const main = document.createElement('main');
-        body.append(main);
+        body.replaceChildren(main);
 
         const imageContainer = document.createElement('div');
         imageContainer.classList.add('image-container');
@@ -37,9 +38,9 @@ const DOMHandler = (function () {
         const additionalInfo = document.createElement('div');
         additionalInfo.classList.add('add-info');
         const minTemp = document.createElement('p');
-        minTemp.textContent = `Min: ${weatherData.min_temp} °`;
+        minTemp.textContent = `Min: ${weatherData.min_temp} ° F`;
         const maxTemp = document.createElement('p');
-        maxTemp.textContent = `Max: ${weatherData.max_temp} °`;
+        maxTemp.textContent = `Max: ${weatherData.max_temp} ° F`;
         const windInfo = document.createElement('p');
         windInfo.textContent = `Wind speed: ${weatherData.wind_speed}m/s from ${weatherData.wind_direction}`;
         const humidity = document.createElement('p');
@@ -50,8 +51,40 @@ const DOMHandler = (function () {
         sunset.textContent = `Sunset: ${weatherData.sunset}`;
         additionalInfo.append(minTemp, maxTemp, windInfo, humidity, sunrise, sunset);
 
+        const formContainer = document.createElement('div');
+        formContainer.classList.add('form-container');
+        const form = document.createElement('form');
+        const fieldset = document.createElement('fieldset');
+        const label = document.createElement('label');
+        label.textContent = 'Enter a city';
+        const input = document.createElement('input');
+        input.setAttribute('id', 'cityName');
+        input.setAttribute('name', 'cityName');
+        input.setAttribute('type', 'text');
+        fieldset.append(label, input);
+        const formBtn = document.createElement('button');
+        formBtn.textContent = 'Search';
+        formBtn.setAttribute('type', 'submit');
+        formBtn.addEventListener('click', getCityInfo);
+        const toggleBtn = document.createElement('button');
+        toggleBtn.setAttribute('id', 'toggle-temp');
+        toggleBtn.addEventListener('click', toggleDegrees);
+        form.append(fieldset, formBtn);
+        formContainer.append(form);
 
-        main.append(imageContainer, basicInfoContainer, additionalInfo);
+        main.append(imageContainer, basicInfoContainer, additionalInfo, formContainer);
+    }
+
+    const getCityInfo = async (e) => {
+        e.preventDefault();
+        const newCity = document.querySelector('#cityName').value;
+        APIHandler.getData(newCity)
+            .then(data => DATAHandler.proccesData(data))
+            .then(data => populateData(data));
+    }
+
+    const toggleDegrees = () => {
+        
     }
 
     return {
