@@ -66,13 +66,10 @@ const DOMHandler = (function () {
         formBtn.textContent = 'Search';
         formBtn.setAttribute('type', 'submit');
         formBtn.addEventListener('click', getCityInfo);
-        const toggleBtn = document.createElement('button');
-        toggleBtn.setAttribute('id', 'toggle-temp');
-        toggleBtn.addEventListener('click', toggleDegrees);
         form.append(fieldset, formBtn);
         formContainer.append(form);
 
-        main.append(imageContainer, basicInfoContainer, additionalInfo, formContainer);
+        main.append(imageContainer, basicInfoContainer, formContainer,additionalInfo );
     }
 
     const getCityInfo = async (e) => {
@@ -81,10 +78,6 @@ const DOMHandler = (function () {
         APIHandler.getData(newCity)
             .then(data => DATAHandler.proccesData(data))
             .then(data => populateData(data));
-    }
-
-    const toggleDegrees = () => {
-        
     }
 
     return {

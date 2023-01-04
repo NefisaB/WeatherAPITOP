@@ -3,7 +3,7 @@ const DATAHandler = (function () {
     const windDirections = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West', 'North'];
 
     function getTime(seconds, timezone) {
-        return new Date(seconds * 1000).toLocaleTimeString({ timezone})
+        return new Date((seconds+timezone-3600) * 1000).toLocaleTimeString();
     }
     
     
