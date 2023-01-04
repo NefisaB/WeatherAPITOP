@@ -7,12 +7,12 @@ const DOMHandler = (function () {
         const main = document.createElement('main');
         body.append(main);
 
-        const gifContainer = document.createElement('div');
-        gifContainer.classList.add('gif-container');
+        const imageContainer = document.createElement('div');
+        imageContainer.classList.add('image-container');
         const img = document.createElement('img');
         console.log(weatherData.desc);
-        img.src = await APIHandler.getGiphy(weatherData.desc);
-        gifContainer.append(img);
+        img.src = await APIHandler.getImage(weatherData.desc);
+        imageContainer.append(img);
 
         const basicInfoContainer = document.createElement('div');
         basicInfoContainer.classList.add('basic-info'); 
@@ -51,7 +51,7 @@ const DOMHandler = (function () {
         additionalInfo.append(minTemp, maxTemp, windInfo, humidity, sunrise, sunset);
 
 
-        main.append(gifContainer, basicInfoContainer, additionalInfo);
+        main.append(imageContainer, basicInfoContainer, additionalInfo);
     }
 
     return {

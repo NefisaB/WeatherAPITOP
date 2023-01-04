@@ -15,7 +15,7 @@ const APIHandler = (function () {
     }
 
     
-    const getGiphy = async (desc) => {
+    const getImage = async (desc) => {
         let description = desc + ' sky';
         try {
             const response = await fetch(`https://pixabay.com/api/?key=32603126-0b3c8ab615cbc7eb6ceb318bf&q=${description}&image_type=photo&pretty=true`);
@@ -29,7 +29,7 @@ const APIHandler = (function () {
 
     return {
         getData,
-        getGiphy,
+        getImage,
     }
 
 })();
