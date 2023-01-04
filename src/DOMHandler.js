@@ -25,22 +25,22 @@ const DOMHandler = (function () {
         tempInfo.textContent = `Temperature: ${weatherData.temp} ° `;
         const degrees = document.createElement('span');
         degrees.classList.add('degrees');
-        degrees.textContent = 'F';
+        degrees.textContent = 'C';
         tempInfo.append(degrees);
         const feelsLike = document.createElement('p');
         feelsLike.textContent = `Feels like ${weatherData.feel_temp} ° `;
         const degrees2 = document.createElement('span');
         degrees2.classList.add('degrees');
-        degrees2.textContent = 'F';
+        degrees2.textContent = 'C';
         feelsLike.append(degrees2);
         basicInfoContainer.append(desc, cityName, tempInfo, feelsLike);
         
         const additionalInfo = document.createElement('div');
         additionalInfo.classList.add('add-info');
         const minTemp = document.createElement('p');
-        minTemp.textContent = `Min: ${weatherData.min_temp} ° F`;
+        minTemp.textContent = `Min: ${weatherData.min_temp} ° C`;
         const maxTemp = document.createElement('p');
-        maxTemp.textContent = `Max: ${weatherData.max_temp} ° F`;
+        maxTemp.textContent = `Max: ${weatherData.max_temp} ° C`;
         const windInfo = document.createElement('p');
         windInfo.textContent = `Wind speed: ${weatherData.wind_speed}m/s from ${weatherData.wind_direction}`;
         const humidity = document.createElement('p');

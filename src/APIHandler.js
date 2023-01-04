@@ -5,7 +5,7 @@ const APIHandler = (function () {
     const getData = async (city) => {
         
         try {
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=48288edb11c1501e5187210a25cdea41`);
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=48288edb11c1501e5187210a25cdea41&units=metric`);
             const data = await response.json();
             return data;
         }
