@@ -17,6 +17,8 @@ const DOMHandler = (function () {
 
         const basicInfoContainer = document.createElement('div');
         basicInfoContainer.classList.add('basic-info'); 
+        const currTime = document.createElement('p');
+        currTime.textContent = new Date().toLocaleTimeString();
         const desc = document.createElement('h2');
         desc.textContent = weatherData.desc;
         const cityName = document.createElement('h3');
@@ -33,7 +35,7 @@ const DOMHandler = (function () {
         degBtn.classList.add('celsius');
         degBtn.addEventListener('click', changeDegrees.bind(null,degBtn, weatherData));
         
-        basicInfoContainer.append(desc, cityName, tempInfo, feelsLike, degBtn);
+        basicInfoContainer.append(currTime, desc, cityName, tempInfo, feelsLike, degBtn);
         
         const additionalInfo = document.createElement('div');
         additionalInfo.classList.add('add-info');
