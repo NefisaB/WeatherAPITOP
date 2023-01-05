@@ -22,27 +22,29 @@ const DOMHandler = (function () {
         const cityName = document.createElement('h3');
         cityName.textContent = weatherData.city;
         const tempInfo = document.createElement('p');
-        tempInfo.textContent = `Temperature: ${weatherData.temp} ° `;
-        const degrees = document.createElement('span');
-        degrees.classList.add('degrees');
-        degrees.textContent = 'C';
-        tempInfo.append(degrees);
+        tempInfo.textContent = weatherData.temp_cel;
+        tempInfo.setAttribute('id', 'current-temperature');
         const feelsLike = document.createElement('p');
-        feelsLike.textContent = `Feels like ${weatherData.feel_temp} ° `;
-        const degrees2 = document.createElement('span');
-        degrees2.classList.add('degrees');
-        degrees2.textContent = 'C';
-        feelsLike.append(degrees2);
-        basicInfoContainer.append(desc, cityName, tempInfo, feelsLike);
+        feelsLike.textContent = weatherData.feel_temp_cel;
+        feelsLike.setAttribute('id', 'feel-temperature');
+        const degBtn = document.createElement('button');
+        degBtn.textContent = 'Switch to F';
+        degBtn.setAttribute('id', 'deg-button');
+        degBtn.classList.add('celsius');
+        degBtn.addEventListener('click', changeDegrees.bind(null,degBtn, weatherData));
+        
+        basicInfoContainer.append(desc, cityName, tempInfo, feelsLike, degBtn);
         
         const additionalInfo = document.createElement('div');
         additionalInfo.classList.add('add-info');
         const minTemp = document.createElement('p');
-        minTemp.textContent = `Min: ${weatherData.min_temp} ° C`;
+        minTemp.textContent = weatherData.min_temp_cel;
         const maxTemp = document.createElement('p');
-        maxTemp.textContent = `Max: ${weatherData.max_temp} ° C`;
+        minTemp.setAttribute('id', 'min-temperature');
+        maxTemp.textContent = weatherData.max_temp_cel;
         const windInfo = document.createElement('p');
-        windInfo.textContent = `Wind speed: ${weatherData.wind_speed}m/s from ${weatherData.wind_direction}`;
+        maxTemp.setAttribute('id', 'max-temperature');
+        windInfo.textContent = `Wind speed: ${weatherData.wind_speed} m/s from ${weatherData.wind_direction}`;
         const humidity = document.createElement('p');
         humidity.textContent = `Humidity: ${weatherData.humidity}%`;
         const sunrise = document.createElement('p');
@@ -70,6 +72,24 @@ const DOMHandler = (function () {
         formContainer.append(form);
 
         main.append(imageContainer, basicInfoContainer, formContainer,additionalInfo );
+    }
+
+    const changeDegrees = (btn, data) => {
+        if (btn.classList.contains('celsius')) {
+            document.querySelector('#current-temperature').textContent = data.temp_fahr;
+            document.querySelector('#feel-temperature').textContent = data.feel_temp_fahr;
+            document.querySelector('#min-temperature').textContent = data.min_temp_fahr;
+            document.querySelector('#max-temperature').textContent = data.max_temp_fahr;
+            btn.classList.remove('celsius');
+            btn.textContent = 'Switch to C';
+        } else {
+            document.querySelector('#current-temperature').textContent = data.temp_cel;
+            document.querySelector('#feel-temperature').textContent = data.feel_temp_cel;
+            document.querySelector('#min-temperature').textContent = data.min_temp_cel;
+            document.querySelector('#max-temperature').textContent = data.max_temp_cel;
+            btn.classList.add('celsius');
+            btn.textContent = 'Switch to F';
+        }
     }
 
     const getCityInfo = async (e) => {
